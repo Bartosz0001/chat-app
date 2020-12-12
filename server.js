@@ -25,11 +25,11 @@ io.on('connection', (socket) => {
     });
     socket.on('logged', (user) => {
         users.push({name: user, id: socket.id});
-        socket.broadcast.emit('message', { author: 'Chat bot', content: `${user} has joined the conversation!`});
+        socket.broadcast.emit('message', { author: 'Chat bot', content: `${user} has joined the conversation!`, type: 'bot'});
     });
     socket.on('disconnect', () => {
         const index = users.findIndex(item => item.id === socket.id);
-        socket.broadcast.emit('message', { author: 'Chat bot', content: `${users[index].name} has left the conversation!`});
+        socket.broadcast.emit('message', { author: 'Chat bot', content: `${users[index].name} has left the conversation!`, type: 'bot'});
         users.splice(index, 1);
     });
 });

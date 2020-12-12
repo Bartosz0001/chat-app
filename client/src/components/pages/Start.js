@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import './start.scss';
 
 const Start = () => {
     let [inputValue, setInputValue] = useState('');
@@ -15,11 +16,13 @@ const Start = () => {
 
     return(
         <div className='container'>
-            <h1 className='intro'>Your name:</h1>
-            <form onSubmit={handleSubmit}>
-                <input className='start-input' type='text' value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
-                <button className='start-btn' type='submit'>OK</button>
-            </form>
+            <div className='start-box'>
+              <h1 className='intro'>Your name:</h1>
+              <form onSubmit={handleSubmit}>
+                <input className='input' type='text' value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
+                <button className='btn' type='submit'>OK</button>
+              </form>
+            </div>
         </div>
     );
 }

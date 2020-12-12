@@ -1,0 +1,32 @@
+@import '../../styles/settings.scss';
+
+.message {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    .message-author {
+        color: $second-color;
+        margin: 0;
+    }
+
+    .message-content {
+        display: block;
+        border-radius: 5px 15px 15px 15px;
+        background-color: $third-color;
+        color: $color-light;
+        font-size: $base-size*1.5;
+        padding: 10px 30px;
+        margin: 5px 0;
+    }
+
+    &.self {
+        align-items: flex-end;
+
+        .message-content {
+            border-radius: 15px 5px 15px 15px;
+        }
+    }
+}

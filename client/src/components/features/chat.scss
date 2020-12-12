@@ -1,0 +1,38 @@
+@import '../../styles/settings.scss';
+
+::-webkit-scrollbar {
+    width: 10px;
+
+    &-track {
+        background-color: $main-color;
+    }
+
+    &-thumb {
+        background-color: $second-color; 
+        border-radius: 10px;
+    }
+  }
+
+
+.chat-box {
+    background-color: $main-color;
+    width: 500px;
+    position: absolute;
+    right: 0;
+    max-height: 100vh;
+    padding-left: 20px;
+
+    .message-list {
+        overflow-y: scroll;
+        max-height: 450px;
+
+        .messages {
+            padding: 0 10px 0 0;
+        }
+    }
+    
+    .add-message {
+        position: fixed;
+        bottom: 20px;
+    }
+}

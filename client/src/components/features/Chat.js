@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import io from 'socket.io-client';
 import { v4 as uuidv4 } from 'uuid';
 
 import Message from './Message';
+import './chat.scss';
 
 const Chat = (props) => {
     let [messages, addMessage] = useState([]);
     let [inputValue, setInputValue] = useState('');
     const [socket, setSocket] = useState();
+    const scrollElement = useRef();
 
     useEffect(() => {
         const connectionOptions =  {
@@ -17,7 +19,7 @@ const Chat = (props) => {
             "timeout" : 10000, //before connect_error and connect_timeout are emitted.
             "transports" : ["websocket"]
           };
-          
+
         const socket = io('http://localhost:8000', connectionOptions);
         setSocket(socket);
 
@@ -28,26 +30,36 @@ const Chat = (props) => {
         });
     }, []);
 
+    useEffect(() => {
+        scrollElement.current.scrollIntoView({ behavior: "smooth" });
+    })
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        addMessage(prevMessages => [...prevMessages, {author: props.userName, content: inputValue}]);
-        socket.emit('message', {author: props.userName, content: inputValue});
-        setInputValue('');
+        if(inputValue !== '') {
+            addMessage(prevMessages => [...prevMessages, {author: props.userName, content: inputValue, type: 'self'}]);
+            socket.emit('message', {author: props.userName, content: inputValue, type: 'other'});
+            setInputValue('');
+        }
     }
 
     return (
     <section className='chat-box'>
-        <ul className='messages'>{messages.map(message => (
+        <div className='message-list'>
+          <ul className='messages'>{messages.map(message => (
             <Message key={uuidv4()} {...message} />
-        ))}</ul>
+          ))}
+            <div ref={scrollElement} />
+          </ul>
+        </div>
         <form className='add-message' onSubmit={handleSubmit}>
             <input 
-            className='message-input' 
+            className='input' 
             type='text' 
             placeholder='Write a message'
             value={inputValue}
             onChange={(event) => setInputValue(event.target.value)} />
-            <button className='message-btn' type='submit'>Send</button>
+            <button className='btn' type='submit'>Send</button>
         </form>
     </section>
     );

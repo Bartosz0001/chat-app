@@ -1,4 +1,31 @@
-.container {
+@import './settings.scss';
+
+body {
     margin: 0;
     padding: 0;
+    font-size: $base-size;
+    font-family: $font-text;
+    background-color: $main-color;
+}
+
+.input {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 10px;
+}
+
+.input:active {
+    border: none;
+}
+
+.btn {
+    display: block;
+    color: $main-color;
+    padding: 5px 10px;
+    margin: 0;
+    background-color: $color-light;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
 }
