@@ -1,0 +1,40 @@
+@import '../../styles//settings.scss';
+
+.side-box {
+    max-width: 200px;
+
+    .add-post-btn {
+        display: inline-block;
+        margin-left: 5px;
+        margin-bottom: 10px;
+        border: solid 2px $main-color;
+    }
+}
+
+.add-post {
+    width: 650px;
+    display: block;
+    position: fixed;
+    z-index: 2;
+    background-color: $color-light;
+
+    .input {
+        margin: 5px;
+        width: 90%;
+        border: solid 2px $main-color;
+    }
+
+    .input-image {
+        width: 50%;
+    }
+
+    .cancel-btn {
+        display: inline-block;
+        border: solid 2px $main-color;
+        margin-left: 10px;
+    }
+}
+
+.hidden {
+    display: none;
+}

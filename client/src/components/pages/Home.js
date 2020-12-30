@@ -1,20 +1,31 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
+
 import Header from '../layout/Header';
 import Footer from '../layout/Footer';
 import Chat from '../features/Chat';
+import Main from '../features/Main';
+import Side from '../features/Side';
+import { socketContext } from '../../context/socket';
+import { userContext } from '../../context/user';
 
-const Home = (historyObj) => {
-  const name = historyObj.location.state.name;
+const Home = () => {
+  const socket = useContext(socketContext);
+  const {userName, setUserName} = useContext(userContext);
+
+  useEffect(() => {
+    console.log('user in Home: ', userName);
+
+    socket.emit('logged', userName);
+  }, []);
+  
   return(
     <div>
       <Header />
 
       <div className='container'>
-        <div className='side'></div>
-        <div className='main'></div>
-        <div className='chat'>
-          <Chat userName={name} />
-        </div>
+        <Side />
+        <Main />
+        <Chat />
       </div>
 
       <Footer />

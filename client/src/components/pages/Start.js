@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { userContext } from '../../context/user';
 import './start.scss';
 
 const Start = () => {
     let [inputValue, setInputValue] = useState('');
     let history = useHistory();
+    const { userName, setUserName } = useContext(userContext);
 
     const handleSubmit = (event) => {
         event.preventDefault();
         if(inputValue === '') alert('You have to enter your name!');
         else {
-            history.push('/home', {name: inputValue});
+            setUserName(inputValue);
+            console.log('user in start: ', userName);
+            history.push('/home');
         }
     }
 
