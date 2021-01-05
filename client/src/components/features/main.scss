@@ -1,5 +1,18 @@
 @import '../../styles/settings.scss';
 
+::-webkit-scrollbar {
+    width: 10px;
+
+    &-track {
+        background-color: $main-color;
+    }
+
+    &-thumb {
+        background-color: $second-color; 
+        border-radius: 10px;
+    }
+  }
+
 .main-content {
     background-color: $color-light;
     max-width: 800px;

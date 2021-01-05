@@ -14,9 +14,13 @@ const Side = () => {
     const { userName, setUserName } = useContext(userContext);
 
     const setPhoto = (photo) => {
-      console.log('photo: ', photo);
         if(photo) setImage(photo[0]);
         else setImage(null);
+    }
+
+    const fixDate = (digits) => {
+      if(digits < 10) return '0' + digits;
+      else return digits;
     }
 
     const handleSubmit = (event) => {
@@ -30,17 +34,25 @@ const Side = () => {
       if(textValue.length > 250) error = 'Text cannot be longer than 250 characters!';
 
       if(!error) {
+        let d = new Date();
+        let day = fixDate(d.getDate());
+        let month = fixDate(d.getMonth()+1);
+        let year = fixDate(d.getFullYear());
+        let hour = fixDate(d.getHours());
+        let minute = fixDate(d.getMinutes());
+        let fullDate = '' + day + '.' + month + '.' + year + ' ' + hour + ':' + minute;
+
         setToggleElement(false);
         setTitleValue('');
         setTextValue('');
         if(image) {
           const reader = new FileReader();
           reader.onload = function(event) {
-            socket.emit('post', { author: userName, title: titleValue, text: textValue, img: event.target.result });
+            socket.emit('post', { author: userName, date: fullDate, title: titleValue, text: textValue, img: event.target.result });
             };
           reader.readAsDataURL(image);
         }
-        else socket.emit('post', { author: userName, title: titleValue, text: textValue })
+        else socket.emit('post', { author: userName, date: fullDate, title: titleValue, text: textValue })
       }
       else alert(error);
     }

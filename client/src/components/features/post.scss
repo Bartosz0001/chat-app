@@ -2,6 +2,8 @@
 
 .post {
     position: relative;
+    height: 170px;
+    border-top: solid 2px $main-color;
 
     .post-author {
         position: absolute;

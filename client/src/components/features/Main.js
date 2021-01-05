@@ -10,8 +10,15 @@ const Main = () => {
     const socket = useContext(socketContext);
 
     useEffect(() => {
+        socket.on('updatePosts', (allPosts) => {
+            allPosts.map(post => (
+                addPost(prevPost => [post, ...prevPost])
+            ));
+            console.log('Posts updated! ', allPosts);
+        });
+
         socket.on('post', (newPost) => {
-            addPost(prevPosts => [{ author: newPost.author, title: newPost.title, text: newPost.text, img: newPost.img }, ...prevPosts]);
+            addPost(prevPosts => [{ author: newPost.author, date: newPost.date, title: newPost.title, text: newPost.text, img: newPost.img }, ...prevPosts]);
         });
     }, []);
 
